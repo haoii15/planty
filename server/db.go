@@ -133,6 +133,7 @@ func getNewestDataForEachPlant() []map[string]interface{} {
 		plantData := map[string]interface{}{
 			"name":  plantName,
 			"value": value,
+			"time": time,
 		}
 
 		// Append the dictionary to the list

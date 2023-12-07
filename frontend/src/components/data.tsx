@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css"; // Import your CSS file
+import Plant from "./plant/plant";
 
 interface Data {
     name: string;
     value: string;
+    time: Date;
     // Add other properties from your API response
 }
-
-const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-};
-
-const boxStyle = {
-    border: "1px solid #ccc",
-    padding: "10px",
-    margin: "10px",
-    textAlign: "center",
-    width: "300px",
-};
 
 function MyComponent() {
     const [dataList, setDataList] = useState<Data[]>([]);
     const [refreshCount, setRefreshCount] = useState(0);
+    const refreshInterval = 1000; // 5 seconds
 
     // Define the refresh interval in milliseconds
-    const refreshInterval = 1000; // 5 seconds
 
     useEffect(() => {
         // Function to fetch data and update the state
@@ -37,6 +23,7 @@ function MyComponent() {
                 // Replace this with your API endpoint
                 // const response = await fetch("http://192.168.68.106:61942/");
                 const response = await fetch("http://192.168.68.143:61942/");
+                // const response = await fetch("http://192.168.105.209:61942/");
                 const data = await response.json();
                 setDataList(data);
             } catch (error) {
@@ -68,10 +55,11 @@ function MyComponent() {
             />
             <h1>Planty</h1>
             {dataList.map((item) => (
-                <div key={item.name} className="box">
-                    <h2>{item.name}</h2>
-                    {item.value}%
-                </div>
+                <Plant
+                    name={item.name}
+                    value={item.value}
+                    time={item.time}
+                ></Plant>
             ))}
         </div>
     );
