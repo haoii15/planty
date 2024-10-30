@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
+import {
+    LineChart,
+    Line,
+    Tooltip,
+    ResponsiveContainer,
+    XAxis,
+    YAxis,
+} from "recharts";
+
+export interface graphData {
+    val: number;
+    timestamp: string;
+}
 
 interface Plant {
     name: string;
     value: string;
     time: Date;
+    history: graphData[];
 }
 
-function Plant(plant: Plant) {
+function PlantComponent(plant: Plant) {
     const [timeDifference, setTimeDifference] = useState({
         days: 0,
         hours: 0,
@@ -42,34 +56,52 @@ function Plant(plant: Plant) {
 
     // calculateTimeDifference();
     return (
-        <div key={plant.name} className="box">
-            <h2>{plant.name}</h2>
-            {plant.value}%
-            <br />
-            {timeDifference.days > 0 ? timeDifference.days + " days ago" : null}
-            {timeDifference.hours > 1 && timeDifference.days === 0
-                ? timeDifference.hours + " hours ago"
-                : null}
-            {timeDifference.hours === 1 && timeDifference.days === 0
-                ? timeDifference.hours + " hour ago"
-                : null}
-            {timeDifference.minutes > 1 &&
-            timeDifference.hours === 0 &&
-            timeDifference.days === 0
-                ? timeDifference.minutes + " minutes ago"
-                : null}
-            {timeDifference.minutes === 1 &&
-            timeDifference.hours === 0 &&
-            timeDifference.days === 0
-                ? timeDifference.minutes + " minute ago"
-                : null}
-            {timeDifference.minutes === 0 &&
-            timeDifference.hours === 0 &&
-            timeDifference.days === 0
-                ? " >1 minute ago"
-                : null}
+        <div key={plant.name} className="grid-item">
+            <div className="grid-item-container">
+                <h2 className="grid-item-header">{plant.name}</h2>
+                <h2 className="grid-item-value">{plant.value}%</h2>
+            </div>
+            <div className="grid-item-timestamp">
+                {timeDifference.days > 0
+                    ? timeDifference.days + " days ago"
+                    : null}
+                {timeDifference.hours > 1 && timeDifference.days === 0
+                    ? timeDifference.hours + " hours ago"
+                    : null}
+                {timeDifference.hours === 1 && timeDifference.days === 0
+                    ? timeDifference.hours + " hour ago"
+                    : null}
+                {timeDifference.minutes > 1 &&
+                timeDifference.hours === 0 &&
+                timeDifference.days === 0
+                    ? timeDifference.minutes + " minutes ago"
+                    : null}
+                {timeDifference.minutes === 1 &&
+                timeDifference.hours === 0 &&
+                timeDifference.days === 0
+                    ? timeDifference.minutes + " minute ago"
+                    : null}
+                {timeDifference.minutes === 0 &&
+                timeDifference.hours === 0 &&
+                timeDifference.days === 0
+                    ? " >1 minute ago"
+                    : null}
+            </div>
+            <ResponsiveContainer width="100%" height={75}>
+                <LineChart data={plant.history}>
+                    {/* <Tooltip /> */}
+                    {/* <XAxis dataKey="Timestamp" /> */}
+                    {/* <YAxis /> */}
+                    <Line
+                        type="monotone"
+                        dataKey="Val"
+                        stroke="#000000"
+                        dot={false}
+                    />
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     );
 }
 
-export default Plant;
+export default PlantComponent;

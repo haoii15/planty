@@ -1,15 +1,58 @@
-.container {
+.header {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 22vh;
+    margin-left: auto; /* Add margin auto to move it towards the middle horizontally */
+    margin-right: auto; /* Add margin auto to move it towards the middle horizontally */
+    background-color: #70d272;
+    color: #ffffff;
+    font-size: 2rem;
+    font-family: "Papyrus", fantasy;
 }
 
-.box {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    width: 300px;
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(300px, 1fr)
+    ); /* Adjust the minimum and maximum width as needed */
+    grid-gap: 16px; /* Adjust the gap between items as needed */
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.grid-item {
+    /* Style for individual grid items */
+    padding: 8px;
+    border: 2px solid #624b41;
+    background-color: #ffffff;
+}
+
+.grid-item-container {
+    display: flex;
+    justify-content: space-between;
+    /* margin-bottom: 10px; */
+    align-items: top;
+}
+
+.grid-item-header {
+    color: #70d272;
+    font-size: 125%;
+}
+
+.grid-item-value {
+    color: #4fa2da;
+    font-size: 200%;
+}
+
+.grid-item-timestamp {
+    color: #898989;
+    font-size: 50%;
+    text-align: right;
+}
+
+.back {
+    background-color: #c7e3c7;
 }
